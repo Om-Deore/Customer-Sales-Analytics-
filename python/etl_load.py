@@ -2,7 +2,7 @@ import pandas as pd
 from sqlalchemy import create_engine
 
 # ── 1. CONFIG ─────────────────────────────────────────
-CSV_PATH = r"E:\Customer Sales Analytics\Superstore.csv"
+CSV_PATH = r"E:\Customer Sales Analytics\Customer-Sales-Analytics-\Superstore.csv"
 DB_USER  = "root"
 DB_PASS  = "Omd%403590"                
 DB_HOST  = "localhost"
