@@ -39,14 +39,16 @@ dim_location = (df[["city","state","region","postal_code"]]
 dim_location["location_id"] = dim_location.index + 1
 
 # Build date dimension
-all_dates = pd.concat([df["order_date"], df["ship_date"]]).dropna().unique()
-dim_date = pd.DataFrame({"date_id": pd.to_datetime(all_dates)})
+min_date = df["order_date"].min()
+max_date = df["order_date"].max()
+dim_date = pd.DataFrame({
+    "date_id": pd.date_range(start=min_date, end=max_date, freq="D")
+})
 dim_date["day"]        = dim_date["date_id"].dt.day
 dim_date["month"]      = dim_date["date_id"].dt.month
 dim_date["month_name"] = dim_date["date_id"].dt.strftime("%B")
 dim_date["quarter"]    = dim_date["date_id"].dt.quarter
 dim_date["year"]       = dim_date["date_id"].dt.year
-dim_date = dim_date.drop_duplicates("date_id").sort_values("date_id")
 
 # Merge location_id into main df
 df = df.merge(
